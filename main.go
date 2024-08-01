@@ -92,7 +92,9 @@ func saveToExcel(input, result []int) error {
 }
 
 func newMarkSequences(input []int) []int {
-	var result []int
+	length := len(input)
+
+	result := make([]int, 0, length)
 
 	slices.Reverse(input)
 
@@ -103,25 +105,25 @@ func newMarkSequences(input []int) []int {
 	// 如果為大於五的數字，標記其 1，並且將 counter 設為該數字減一。counter 代表的意義為後面還有幾個數字要標記為 1
 	// 如果 counter 大於 0，標記其 1，並且將 counter 減一
 	// 其他情況標記其 0
-	for _, number := range input {
+	for i, number := range input {
 		if number == 0 {
-			result = append(result, 0)
+			result[i] = 0
 			continue
 		}
 
 		if counter > 0 {
-			result = append(result, 1)
+			result[i] = 1
 			counter--
 			continue
 		}
 
 		if number >= 5 {
-			result = append(result, 1)
+			result[i] = 1
 			counter = number - 1
 			continue
 		}
 
-		result = append(result, 0)
+		result[i] = 0
 	}
 
 	slices.Reverse(result)
